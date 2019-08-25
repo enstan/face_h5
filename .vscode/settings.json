@@ -1,0 +1,27 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "window.menuBarVisibility": "toggle",
+    "window.zoomLevel": 1,
+    "python.pythonPath":  "/usr/local/anaconda3/envs/tensorflow/bin/python3.6",
+    "python.autoComplete.extraPaths": [
+        "/usr/local/anaconda3/envs/tensorflow/lib/python3.6/site-packages"
+    ],
+    "python.linting.flake8Enabled": false,
+    "python.formatting.provider": "autopep8",
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.jediEnabled": false,
+
+    "[cpp]": {
+        "editor.quickSuggestions": false
+    },
+    "[c]": {
+        "editor.quickSuggestions": false
+    },
+    "python.testing.promptToConfigure": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintPath": "/usr/local/anaconda3/lib/python3.7/site-packages/pylint",
+
+}
