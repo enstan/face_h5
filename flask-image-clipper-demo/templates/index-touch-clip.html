@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equivV="Expires" content="0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name=viewport content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>touch-canvas</title>
+    
+    <link rel="stylesheet" href="./static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="./static/css/main.css" type="text/css" />
+    
+    <script type="text/javascript" src="./static/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./static/js/pageresponse.js"></script>
+    <script type="text/javascript" src="./static/js/main.js"></script>
+</head>
+<body>
+     <div class="main">
+        <div class="title">
+            <span>来自拍一张吧</span>
+            <span>手势操纵(放大缩小)</span>
+        </div>
+         <!--canvas--- 插件-->
+    <div id="mycontainer" style="width: 750px; height: 1100px"> <!-- set desired position and size to that div -->
+        <canvas id="mycanvas" width="750" height="1100"></canvas>
+    </div>
+    <div class="previewImgBox"></div>
+    <div class="action">
+        <!-- <input type="file" id="file" style=" width: 200px">-->
+        <input type="button" id="choose" class="Btnsty_peyton" style="float: left;" value="选择图像" />
+
+        <input type="button" id="save" name="save" class="Btnsty_peyton" value="开始检测" />
+    </div>
+    </div>
+     <div class="test_menu">
+         <ul>
+             <li>
+                 <a href="javascript:void(0)" class="upload">
+                     <label htmlFor="emotion">
+                         情绪自拍
+                     </label>
+                 </a>
+             </li>
+             <li>
+                 <a href="javascript:void(0)" class="upload">
+                     <label htmlFor="age">
+                         年龄预测
+                     </label>
+                 </a>
+             </li>
+
+             <li>
+                 <a href="javascript:void(0)" class="upload">
+                     <label htmlFor="yolov3">
+                         物体个数
+                     </label>
+                 </a>
+             </li>
+             <li>
+                 <a href="javascript:void(0)" class="upload">
+                     <label htmlFor="reset">
+                           图像修复（未完成）
+                     </label>
+                 </a>
+             </li>
+         </ul>
+     </div>
+     <div class="menu" >
+         <ul>
+             <li>
+                <div class="contentarea tc">
+                <a href="javascript:void(0)" class="upload-img">
+                <label for="upload-file">
+                             开始拍照
+                </label>
+                </a>
+            <input type="file" accept="image/*" capture='camera' class="" name="upload-file" id="upload-file" />
+                </div>
+             </li>
+              <li>
+                  <div class="contentarea tc">
+                <a href="javascript:void(0)" class="upload-img">
+                <label for="upload-file">
+                 选择相册</label>
+                </a>
+                 <input type="file" id="files">
+                </div>
+              </li>
+
+         </ul>
+     </div>
+     <div class="process" style=" display:none">
+          <div id="circularG" >
+        <div id="circularG_1" class="circularG">
+        </div>
+        <div id="circularG_2" class="circularG">
+        </div>
+        <div id="circularG_3" class="circularG">
+        </div>
+        <div id="circularG_4" class="circularG">
+        </div>
+        <div id="circularG_5" class="circularG">
+        </div>
+        <div id="circularG_6" class="circularG">
+        </div>
+        <div id="circularG_7" class="circularG">
+        </div>
+        <div id="circularG_8" class="circularG">
+        </div>
+    </div>
+     </div>
+
+<!--    <script type="text/javascript" src="./static/js/mapinfo.js"></script>-->
+      <script src="./static/js/imgupload.js"></script>
+         <script src="./static/js/img-touch-clip.js"></script>
+    <script type="text/javascript">
+        $(".test_menu li").click(function(){
+        });
+        var MAPINFO=[];
+        var clientWidth = document.documentElement.clientWidth;
+        var clientHeight = document.documentElement.clientHeight;
+        var lastscale=1;
+        var lastposx=0;
+        var lastoffy=0;
+        var zoomScale = 1;
+        var offscale=1;
+        var module='emotion';
+
+        var format=0;
+        function DrawMapInfo(scaleX, scaleY, offsetX, offsetY) {
+            //offsetx,offsexy,为背景图像左上角的顶点。
+            //mapinfo的坐标体系是相对于canvas左上顶点的。
+
+            if(scaleX<1){
+                zoomScale=1;
+            }else{
+                zoomScale=scaleX;
+            }
+           // scaleX
+            if(module=="emot"){
+
+            }else{
+            }
+            for (i = 0; i < MAPINFO.length; i++) {
+
+                DrawBlock(
+                format=(MAPINFO[i].bound_box.x - lastposx )/lastscale * scaleY + offsetX,
+//边框的像素×背景图像scale倍数+偏移量，
+//
+//offsetX= (parseInt(currentWidth) - parseInt(indoormap.getAttribute("width"))) / 2
+                (MAPINFO[i].bound_box.y - lastoffy) / lastscale * scaleY + offsetY ,
+                MAPINFO[i].bound_box.w / lastscale * scaleY,
+                MAPINFO[i].bound_box.h / lastscale * scaleY,
+                MAPINFO[i].emotion,
+                MAPINFO[i].gender);
+            }
+        }
+        function emotion_draw(){
+
+        }
+        function DrawBlock(x, y, width, height, text,gender) {
+            //console.log(x);
+            var canvas = document.getElementById("mycanvas");
+            var context2D = canvas.getContext("2d");
+            var textsize = width * height / (1000 * zoomScale * zoomScale);
+           //context2D.fillStyle = "rgba(255,30,12,1)";      //backgroundcolor
+           //context2D.fillRect(x, y, width, height);
+            if(gender=="男人"){
+                context2D.strokeStyle = "rgba(255,30,12,1)";
+                context2D.fillStyle = "rgba(255,30,12,1)";
+            }else{
+                context2D.strokeStyle = "rgb(36,0,255)";
+                context2D.fillStyle = "rgb(14,0,255)";
+            }
+
+
+            context2D.lineWidth = 3.5;
+            context2D.strokeRect(x, y, width, height);
+            context2D.font = 25  + "pt Microsoft YaHei";
+
+            if (textsize > 15) {
+                context2D.font = 25 + "pt Microsoft YaHei";
+
+            } else {
+               // context2D.font = 0 + "pt Microsoft YaHei";
+            }
+
+            if(moudle=="emotion"){
+                context2D.fillText(text, x + 10 * zoomScale, y -30);
+                context2D.fillText(gender, x + 10 * zoomScale, y -8);
+            }else{
+                context2D.fillText(text, x + 10 * zoomScale, y - 8);
+            }
+        }
+
+       // var gestureimg="";
+    function file_change(canvas,img){
+        //console.log('call_back',canvas);
+        //console.log('call_back',img);
+       
+    }
+   var gesturableImg= new ImgTouchCanvas({
+                    //path改为image
+                    canvas:document.getElementById("mycanvas"),
+                    //path: './',
+                    desktop: true
+                });
+    //    初始化
+    var imgupload=new Imgupload({
+        //选择文件按钮id
+        uploadInputBtn:"input[type=file]",
+        //预览容器id
+        previewBox:"#previewImgBox",
+        //容纳图片的容器id
+        imgBox:"#mycontainer",
+        //容纳图片的容器大小设置
+        imgBoxSize:750,
+        //图片剪裁区域大小校设置
+        imgCropSize:0,
+        //剪裁图片预览容器大小
+        previewBoxSize:10
+    },saveCallBack,file_change);
+
+//回调函数
+    function saveCallBack(base64,action){
+        menu_hide();
+        console.log("base64",base64);
+        if(base64!=""||base64!="null"){
+            $(".process").show();
+        }
+      moudle=action
+      $("#base64 img").attr("src",base64);
+      //最终把此base64传给后端
+      var url = '/upload/';
+      var data = {
+          action: 'add',
+          moudle:action,
+          picStr: base64
+      };
+    $.ajax(url,{
+		type: 'post',
+         data: data,
+         success: function (data) {
+             $(".process").hide();
+		     MAPINFO=JSON.parse(data);
+		     console.log("mapinfo:",MAPINFO);
+
+		 //   gesturableImg.animate();
+             lastscale=gesturableImg.scale.x;
+             lastposx=gesturableImg.position.x;
+             lastoffy=gesturableImg.position.y;
+             console.log("scalex",gesturableImg.scale.x);
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+              $(".process").hide();
+          }
+	})}
+    </script>
+</body>
+</html>

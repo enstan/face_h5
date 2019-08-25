@@ -1,0 +1,130 @@
+*{
+    margin:0 0;
+    padding:0 0;
+}
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+img{
+    pointer-events: none;               
+}
+
+ul{
+    list-style: none;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(247, 188, 110, 0.144);
+  }
+.title{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 120px;
+    font-size: 2.5rem;
+    text-align: center;
+}
+.title span{
+    display: block;
+    width: 100%;
+    line-height: 2rem;
+    font-size: 2rem;
+    text-align: center;
+}
+.emotion_text{
+    display: block;
+    width: 100%;
+    height: 3rem;
+    font-size: 4rem;
+    text-align: center; 
+}
+.my_imgbox{
+    display: block;
+    width: 80%;
+    height: 3rem;
+    font-size: 4rem;
+    text-align: center; 
+}
+.test_menu{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+#mycanvas{
+    border-color:#333333;
+    border-style: solid;
+    border-width: 2px;
+}
+.test_menu ul li {
+    width: 50%;
+    height:50px;
+    text-align:center;
+    float: left;
+}
+.test_menu label {
+	width:373px;
+	height:50px;
+}
+.test_menu ul li a{
+    width:100%;
+	display: inline-block;
+	margin-bottom: 2px;
+	height:50px;
+	line-height: 50px;
+	font-size: 20px;
+	color: #f38e81;
+	background-color: #FFFFFF;
+	border-radius: 3px;
+	text-decoration:none;
+	cursor:pointer;
+	border: 0px #fff solid;
+}
+.menu{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.menu ul li {
+    width: 100%;
+    height:50px;
+}
+
+/*选择文件上传*/
+.contentarea {
+	width: 100%;
+	overflow:hidden;
+	margin: 0 auto;
+	position:relative;float:left;
+}
+.contentarea label {
+	width:100%;
+	height:50px;
+	display:block;
+}
+
+.contentarea input[type=file] {
+	width: 100%;
+	height:50px;
+	background:#333;
+	margin: 0 auto;
+	position:absolute;
+	right:50%;
+	margin-right:-94px;
+	top:0;
+	right/*\**/:0px\9;
+	margin-right/*\**/:0px\9;
+	width/*\**/:10px\9;
+	opacity:0;
+	filter:alpha(opacity=0);
+	z-index:2;
+}
+.process{
+    position: static;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(247, 188, 110, 0.144);
+}
